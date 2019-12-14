@@ -1,0 +1,13 @@
+#!/bin/bash
+
+chosen=$(echo -e "cancel\nlogout\nsuspend\nshutdown\nreboot" | dmenu -i -p 'exit: ' -fn 'Inconsolata:bold' -sf '#eeeeee' -sb '#fd7d02')
+
+if [[ $chosen == 'logout' ]]; then
+    bspc quit
+elif [[ $chosen == 'suspend' ]]; then
+    systemctl suspend && slock
+elif [[ $chosen == 'shutdown' ]]; then
+    systemctl poweroff
+elif [[ $chosen == 'reboot' ]]; then
+    systemctl reboot
+fi

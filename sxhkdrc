@@ -1,0 +1,108 @@
+#keybindings
+
+### start applications ###
+# terminal
+super + Return
+	urxvt
+# application launcher
+super + d
+	dmenu_run -p 'run: ' -fn 'Inconsolata:bold' -sf '#eeeeee' -sb '#fd7d02'
+# text editor
+super + XF86AudioMute
+    urxvt -name editor -e vim
+# web browser
+super + XF86AudioLowerVolume
+    firefox
+# file manager
+super + XF86AudioRaiseVolume
+    thunar
+# status notification
+super + n
+    ~/.config/bspwm/status
+# music player
+super + c
+    urxvt -name music -e cmus && bspc desktop -f 5
+# vpn
+super + v
+    urxvt -name vpn -e sudo pvpn -m
+super + shift + v
+    ~/.config/bspwm/vpn
+    
+### window controls ###
+# close/kill window
+super + {_, shift} + q
+    bspc {node -c, node -k}
+# focus windows by direction
+super + {h, j, k, l}
+    bspc node -f {west, south, north, east}
+super + {Left, Down, Up, Right}
+    bspc node -f {west, south, north, east}
+# move windows to direction
+super + shift + {h, j, k, l}
+    bspc node -s {west, south, north, east}
+super + shift + {Left, Down, Up, Right}
+    bspc node -s {west, south, north, east}
+# cycle windows
+super + Tab 
+    bspc node -f next.local
+# resize windows (expand)
+super + ctrl + {Left, Down, Up, Right}
+    bspc node -z {left -10 0, bottom 0 10, top 0 -10, right 10 0}
+super + ctrl + {h, j, k, l}
+    bspc node -z {left -10 0, bottom 0 10, top 0 -10, right 10 0}
+# resize windows (contract)
+super + alt + {Left, Down, Up, Right}
+    bspc node -z {right -10 0, top 0 10, bottom 0 -10, left 10 0}
+super + alt + {h, j, k, l}
+    bspc node -z {right -10 0, top 0 10, bottom 0 -10, left 10 0}
+# balance window sizes
+super + b
+    bspc node @/ -B
+
+### change layouts ###
+# toggle fullscreen
+super + f
+    bspc node -t {fullscreen, tiled}
+# toggle floating
+super + shift + space
+    bspc node -t {floating, tiled}
+# toggle monocled layout
+super + w
+    bspc desktop -l next
+# set horizontal/vertical tile
+super + e
+    bspc rule -a "*:*" split_dir={south, east} 
+
+### workspaces ###
+# go to workspaces {1-6}
+super + {1-6}
+    bspc desktop -f {1-6}
+# move window to workspace {1-6}
+super + shift + {1-6}
+    bspc node -d {1-6}
+
+### system controls ###    
+# sound controls
+XF86AudioRaiseVolume
+    pactl set-sink-volume 0 +5%
+XF86AudioLowerVolume
+    pactl set-sink-volume 0 -5%
+XF86AudioMute
+    pactl set-sink-mute 0 toggle
+# brightness controls
+XF86MonBrightnessUp
+    xbacklight -inc 5
+XF86MonBrightnessDown
+    xbacklight -dec 5
+# lock screen
+super + 9
+    slock
+# screenshot
+super + Print
+    scrot -e 'mv $f ~/scrot'
+# quit bspwm
+super + 0
+	~/.config/bspwm/shutdown
+# reload sxhkd config
+super + shift + r
+    pkill -USR1 -x sxhkd

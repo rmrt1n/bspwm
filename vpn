@@ -1,0 +1,8 @@
+#!/bin/bash
+
+chosen=$(echo -e "no\\nyes" | dmenu -p "disconnect from vpn: " -fn 'Inconsolata:bold' -sf '#eeeeee' -sb '#fd7d02')
+
+if [[ $chosen == 'yes' ]]; then
+    sudo pvpn -d
+fi
+
